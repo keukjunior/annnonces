@@ -6,7 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Annonce implements Serializable{
    @Id
    @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,17 +28,17 @@ public class Annonce implements Serializable{
 	this.description = description;
 	this.photo = photo;
     }
-public Long getIdannonce() {
-	return idannonce;
-}
-public void setIdannonce(Long idannonce) {
-	this.idannonce = idannonce;
-}
 public String getTitre() {
 	return titre;
 }
 public void setTitre(String titre) {
 	this.titre = titre;
+}
+public String getDescription() {
+	return description;
+}
+public void setDescription(String description) {
+	this.description = description;
 }
 public String getPhoto() {
 	return photo;
@@ -42,6 +46,7 @@ public String getPhoto() {
 public void setPhoto(String photo) {
 	this.photo = photo;
 }
+
    
     
    

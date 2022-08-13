@@ -27,9 +27,9 @@ import sn.mapenda.annonces.Repository.AnnonceRepository;
 import sn.mapenda.annonces.Service.AnnonceService;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+
 public class AnnonceController {
 	
 	@Autowired
