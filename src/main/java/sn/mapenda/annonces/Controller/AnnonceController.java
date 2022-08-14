@@ -2,6 +2,8 @@ package sn.mapenda.annonces.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -25,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import sn.mapenda.annonces.Entity.Annonce;
 import sn.mapenda.annonces.Repository.AnnonceRepository;
 import sn.mapenda.annonces.Service.AnnonceService;
+
 
 
 @CrossOrigin("*")
@@ -71,5 +74,12 @@ public class AnnonceController {
 		Annonce annonce=annoncerepository.getById(id);
 		return new ResponseEntity<>(annonce,HttpStatus.OK);
 	}
+	
+	@GetMapping(path="/getImages/{id}")
+	public byte[] getImages (@PathVariable ("id") Long id) throws IOException {
+		Annonce annonce= annoncerepository.findById(id).get();
+		
+			return Files.readAllBytes(Paths.get(context.getRealPath("/images/")+annonce.getPhoto()));
+		}
 
 }

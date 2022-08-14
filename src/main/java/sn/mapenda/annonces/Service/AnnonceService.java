@@ -2,6 +2,8 @@ package sn.mapenda.annonces.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sn.mapenda.annonces.Entity.Annonce;
 import sn.mapenda.annonces.Repository.AnnonceRepository;
+
 
 
 @Service
@@ -76,7 +80,14 @@ public class AnnonceService {
 		Annonce annonce=annoncerepository.getById(id);
 		return new ResponseEntity<>(annonce,HttpStatus.OK);
 	}
-		 
+		
+	
+	@GetMapping(path="/getImages/{id}")
+	public byte[] getImages (@PathVariable ("id") Long id) throws IOException {
+		Annonce annonce=annoncerepository.findById(id).get();
+		
+			return Files.readAllBytes(Paths.get(context.getRealPath("/images/")+annonce.getPhoto()));
+		}
 		
 
 }
