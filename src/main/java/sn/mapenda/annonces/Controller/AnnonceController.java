@@ -71,7 +71,7 @@ public class AnnonceController {
 	
 	@GetMapping("/listeannonce/{id}")
 	public ResponseEntity<Annonce> getAnnonceById(@PathVariable("id") Long id){
-		Annonce annonce=annoncerepository.getById(id);
+		Annonce annonce=annoncerepository.findById(id).get();
 		return new ResponseEntity<>(annonce,HttpStatus.OK);
 	}
 	
